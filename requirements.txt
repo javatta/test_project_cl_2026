@@ -1,0 +1,13 @@
+jieba
+sacrebleu
+sentencepiece
+transformers>=4.30
+sentence-transformers
+datasets
+scikit-learn
+pandas
+numpy
+matplotlib
+scipy
+spacy
+torch
