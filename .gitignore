@@ -2,3 +2,11 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# сгенерированные пайплайном артефакты (features.csv из реального прогона
+# ноутбука, графики из 03_stat_analysis.R) — не коммитим, только код и
+# data/sample_features.csv (пример для тестирования скрипта)
+/features.csv
+/plots/
+.ipynb_checkpoints/
+__pycache__/
