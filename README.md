@@ -12,7 +12,7 @@
 
 | Файл | Назначение |
 |---|---|
-| `02_mt_triage_qe_colab.ipynb` | Colab-ноутбук: сбор zh-ru пар (UN Parallel Corpus), генерация MT (`facebook/nllb-200-distilled-600M`), авторазметка качества (chrF + LaBSE similarity, только для сборки обучающей выборки), извлечение признаков без эталона (jieba, длины, NER-несоответствия, cross-lingual LaBSE src↔mt), быстрая статистика на Python и ML-модели (RandomForest/GradientBoosting: регрессия качества + классификация accept/edit). На выходе — `features.csv`. |
+| `02_mt_triage_qe_colab.ipynb` | Colab-ноутбук: сбор zh-ru пар (UN Parallel Corpus, с прямым fallback на OPUS в обход HF `datasets`), генерация MT (`facebook/nllb-200-distilled-600M`), авторазметка качества (chrF + LaBSE similarity, только для сборки обучающей выборки), извлечение признаков без эталона (jieba, длины, NER-несоответствия, непереведённые иероглифы, повторы n-грамм, cross-lingual LaBSE src↔mt), быстрая статистика на Python и ML-модели (RandomForest/GradientBoosting с подбором гиперпараметров по кросс-валидации: регрессия качества + классификация accept/edit, ROC-AUC/PR-AUC, подбор порога по recall). На выходе — `features.csv`. |
 | `03_stat_analysis.R` | Статистический блок на R поверх `features.csv`: корреляции Пирсона признаков с `quality_score`, t-test между группами accept/needs_edit, линейная регрессия (`lm`), логистическая регрессия (`glm`), ANOVA, диагностические графики в `plots/`. |
 | `data/sample_features.csv` | Синтетический пример с той же структурой, что и реальный `features.csv` — чтобы `03_stat_analysis.R` можно было проверить сразу, не запуская ноутбук. |
 | `requirements.txt` | Python-зависимости пайплайна (для локального запуска; в самом ноутбуке есть свой `!pip install`). |
@@ -45,6 +45,10 @@
 - `mt_len_chars`, `mt_len_tokens`, `len_ratio` — длина MT-перевода и её
   отношение к длине исходника.
 - `digit_mismatch` — расхождение количества чисел между исходником и MT.
+- `untranslated_zh_ratio` — доля китайских иероглифов, оставшихся
+  непереведёнными в тексте MT (частый сбой перевода).
+- `repeat_bigram_ratio` — доля повторяющихся биграмм в MT (зацикленная
+  генерация — ещё один частый сбой seq2seq-моделей).
 - `zh_n_entities`, `mt_n_entities`, `entity_mismatch` — число именованных
   сущностей (spaCy) в исходнике/переводе и их расхождение.
 - `labse_sim_src_mt` — cross-lingual косинусная близость эмбеддингов
