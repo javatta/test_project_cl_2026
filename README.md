@@ -12,7 +12,7 @@
 
 | Файл | Назначение |
 |---|---|
-| `02_mt_triage_qe_colab.ipynb` | Colab-ноутбук: сбор zh-ru пар (UN Parallel Corpus), генерация MT (`Helsinki-NLP/opus-mt-zh-ru`), авторазметка качества (chrF + LaBSE similarity, только для сборки обучающей выборки), извлечение признаков без эталона (jieba, длины, NER-несоответствия, cross-lingual LaBSE src↔mt), быстрая статистика на Python и ML-модели (RandomForest/GradientBoosting: регрессия качества + классификация accept/edit). На выходе — `features.csv`. |
+| `02_mt_triage_qe_colab.ipynb` | Colab-ноутбук: сбор zh-ru пар (UN Parallel Corpus), генерация MT (`facebook/nllb-200-distilled-600M`), авторазметка качества (chrF + LaBSE similarity, только для сборки обучающей выборки), извлечение признаков без эталона (jieba, длины, NER-несоответствия, cross-lingual LaBSE src↔mt), быстрая статистика на Python и ML-модели (RandomForest/GradientBoosting: регрессия качества + классификация accept/edit). На выходе — `features.csv`. |
 | `03_stat_analysis.R` | Статистический блок на R поверх `features.csv`: корреляции Пирсона признаков с `quality_score`, t-test между группами accept/needs_edit, линейная регрессия (`lm`), логистическая регрессия (`glm`), ANOVA, диагностические графики в `plots/`. |
 | `data/sample_features.csv` | Синтетический пример с той же структурой, что и реальный `features.csv` — чтобы `03_stat_analysis.R` можно было проверить сразу, не запуская ноутбук. |
 | `requirements.txt` | Python-зависимости пайплайна (для локального запуска; в самом ноутбуке есть свой `!pip install`). |
