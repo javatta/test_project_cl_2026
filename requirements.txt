@@ -1,4 +1,5 @@
 jieba
+requests
 sacrebleu
 sentencepiece
 transformers>=4.30
